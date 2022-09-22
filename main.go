@@ -6,6 +6,8 @@ import (
 	"typathon/models/db"
 	"typathon/routers"
 	"typathon/utils"
+
+	"github.com/gin-gonic/gin"
 )
 
 var ConfigVariables config.ConfigType
@@ -18,6 +20,7 @@ func main() {
 	fmt.Println("Connected to the db successfully")
 	router := routers.InitRoute()
 	fmt.Println("Routes have been added. About to start running the server.")
+	gin.SetMode(gin.ReleaseMode)
 	port := utils.EnvVar("SERVER_PORT", ":8080")
 	router.Run(port)
 }
