@@ -13,6 +13,6 @@ func main() {
 	ConfigVariables = *config.GetConfig()
 	db.ConnectMongoDB(ConfigVariables)
 	router := routers.InitRoute()
-	port := utils.EnvVar("SERVER_PORT", ":80")
+	port := utils.EnvVar("SERVER_PORT", ":3000")
 	router.Run(port)
 }
