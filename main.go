@@ -18,6 +18,6 @@ func main() {
 	fmt.Println("Connected to the db successfully")
 	router := routers.InitRoute()
 	fmt.Println("Routes have been added. About to start running the server.")
-	port := utils.EnvVar("SERVER_PORT", ":80")
+	port := utils.EnvVar("SERVER_PORT", ":8080")
 	router.Run(port)
 }
