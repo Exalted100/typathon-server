@@ -13,6 +13,7 @@ func setAuthRoute(router *gin.Engine) {
 	scoreController := new(controllers.ScoresController)
 
 	router.Use(middlewares.CORSMiddleware())
+	router.GET("/healthz", health)
 	router.POST("/login", authController.Login)
 	router.POST("/signup", authController.Signup)
 	router.GET("/password/reset", authController.ResetPassword)
@@ -34,4 +35,11 @@ func InitRoute() *gin.Engine {
 
 	setAuthRoute(router)
 	return router
+}
+
+func health(c *gin.Context) {
+
+	c.JSON(200, gin.H{
+		"data": "A-O-Kay",
+	})
 }
