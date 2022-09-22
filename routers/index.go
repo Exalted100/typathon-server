@@ -11,6 +11,8 @@ import (
 func setAuthRoute(router *gin.Engine) {
 	authController := new(controllers.AuthController)
 	scoreController := new(controllers.ScoresController)
+
+	router.Use(middlewares.CORSMiddleware())
 	router.POST("/login", authController.Login)
 	router.POST("/signup", authController.Signup)
 	router.GET("/password/reset", authController.ResetPassword)

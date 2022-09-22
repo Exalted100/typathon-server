@@ -4,5 +4,5 @@ package entity
 type Score struct {
 	User  string `json:"user" bson:"user" binding:"required"`
 	Mode  string `json:"mode" bson:"mode" binding:"required"`
-	Score int64 `json:"score" bson:"score" binding:"required"`
+	Score float64 `json:"score" bson:"score" binding:"required"`
 }

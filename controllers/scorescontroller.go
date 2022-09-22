@@ -17,7 +17,7 @@ func (route *ScoresController) SaveScore(c *gin.Context) {
 		c.AbortWithStatusJSON(401, gin.H{"error": "Please input all fields"})
 		return
 	}
-	scoreInfo.User = user.Email
+	scoreInfo.User = user.UserName
 
 	scoreservice := service.ScoreService{}
 	err := scoreservice.Create(&scoreInfo)
@@ -33,7 +33,7 @@ func (route *ScoresController) GetUserScores(c *gin.Context) {
 	user := c.MustGet("user").(*(entity.User))
 
 	scoreservice := service.ScoreService{}
-	scores, err := scoreservice.FindAll("user", user.Email)
+	scores, err := scoreservice.FindUserHighestScores("user", user.UserName)
 	if err != nil {
 		c.AbortWithStatusJSON(500, gin.H{"error": err.Error()})
 	} else {

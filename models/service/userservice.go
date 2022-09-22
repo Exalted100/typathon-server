@@ -16,7 +16,11 @@ type Userservice struct{}
 func (userservice Userservice) Create(user *(entity.User)) error {
 	err := db.UsersCollection.FindOne(context.TODO(), bson.M{"email": user.Email})
 	if err == nil {
-		return errors.New("Already Exist")
+		return errors.New("Account with this email Already Exists")
+	}
+	userNameErr := db.UsersCollection.FindOne(context.TODO(), bson.M{"userName": user.UserName})
+	if userNameErr == nil {
+		return errors.New("Account with this username Already Exists")
 	}
 
 	_, findErr := db.UsersCollection.InsertOne(context.TODO(), user)
