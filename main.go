@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"typathon/config"
 	"typathon/models/db"
 	"typathon/routers"
@@ -10,10 +11,13 @@ import (
 var ConfigVariables config.ConfigType
 
 func main() {
+	fmt.Println("Server is starting")
 	ConfigVariables = *config.GetConfig()
+	fmt.Println("Config variables have been set", ConfigVariables, "- Now connecting to the db")
 	db.ConnectMongoDB(ConfigVariables)
+	fmt.Println("Connected to the db successfully")
 	router := routers.InitRoute()
-	// port := os.Getenv("PORT")
+	fmt.Println("Routes have been added. About to start running the server.")
 	port := utils.EnvVar("SERVER_PORT", ":80")
 	router.Run(port)
 }
