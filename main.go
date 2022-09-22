@@ -1,10 +1,10 @@
 package main
 
 import (
+	"os"
 	"typathon/config"
-	"typathon/routers"
-	"typathon/utils"
 	"typathon/models/db"
+	"typathon/routers"
 )
 
 var ConfigVariables config.ConfigType
@@ -13,6 +13,7 @@ func main() {
 	ConfigVariables = *config.GetConfig()
 	db.ConnectMongoDB(ConfigVariables)
 	router := routers.InitRoute()
-	port := utils.EnvVar("SERVER_PORT", "0.0.0.0:3000")
+	port := os.Getenv("PORT")
+	// port := utils.EnvVar("SERVER_PORT", "0.0.0.0:3000")
 	router.Run(port)
 }
