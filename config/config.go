@@ -27,10 +27,6 @@ func GetConfig() *ConfigType {
 		MailPassword: os.Getenv("MAIL_PASSWORD"),
 	}
 
-	if ConfigVariables.MongodbUrl == "" {
-		ConfigVariables.MongodbUrl = "mongodb://127.0.0.1:27017/"
-	}
-
 	validate := validator.New()
 	err := validate.Struct(ConfigVariables)
 
