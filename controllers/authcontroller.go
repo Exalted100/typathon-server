@@ -59,8 +59,9 @@ func (auth *AuthController) Profile(c *gin.Context) {
 	user := c.MustGet("user").(*(entity.User))
 
 	c.JSON(200, gin.H{
-		"user_name": user.Name,
-		"email":     user.Email,
+		"name":     user.Name,
+		"userName": user.UserName,
+		"email":    user.Email,
 	})
 }
 
@@ -132,7 +133,7 @@ func (auth *AuthController) ResetPassword(c *gin.Context) {
 	}
 	var requestUser User
 	if err := c.ShouldBindJSON(&requestUser); err != nil {
-		c.AbortWithStatusJSON(401, gin.H{"error": "Please input all fields"})
+		c.AbortWithStatusJSON(400, gin.H{"error": "Please input all fields"})
 		return
 	}
 	user := entity.User{}
@@ -144,7 +145,8 @@ func (auth *AuthController) ResetPassword(c *gin.Context) {
 		return
 	}
 	//-------
-	body := "You can reset your password by following this link: <a href=" + utils.RemoveTrailingSlash(requestUser.ResetUrl) + "/" + token + ">password reset link</a>."
+	body := "You can reset your password by following this link: <a href=http://" + requestUser.ResetUrl + "/" + token + ">password reset link</a>."
+	fmt.Println(body)
 	utils.SendEmail(config.ConfigValues, requestUser.Email, body)
 	c.JSON(200, gin.H{})
 }

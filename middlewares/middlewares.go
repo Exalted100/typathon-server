@@ -1,6 +1,7 @@
 package middlewares
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -14,7 +15,10 @@ import (
 //Authentication is for auth middleware
 func Authentication() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		fmt.Println("About to get header")
 		authHeader := c.Request.Header.Get("Authentication")
+		fmt.Println("Got header")
+		fmt.Println(authHeader)
 		if len(authHeader) == 0 {
 			c.AbortWithStatusJSON(400, gin.H{
 				"error": "Authentication header is missing",

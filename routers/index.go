@@ -16,7 +16,7 @@ func setAuthRoute(router *gin.Engine) {
 	router.GET("/healthz", health)
 	router.POST("/login", authController.Login)
 	router.POST("/signup", authController.Signup)
-	router.GET("/password/reset", authController.ResetPassword)
+	router.PUT("/password/reset", authController.ResetPassword)
 
 	authGroup := router.Group("/")
 	authGroup.Use(middlewares.Authentication())

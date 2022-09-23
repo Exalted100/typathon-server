@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"typathon/models/entity"
 	"typathon/models/service"
 
@@ -14,6 +15,7 @@ func (route *ScoresController) SaveScore(c *gin.Context) {
 
 	var scoreInfo entity.Score
 	if err := c.ShouldBindJSON(&scoreInfo); err != nil {
+		fmt.Println("Could not bind json for creation of new score creation.")
 		c.AbortWithStatusJSON(401, gin.H{"error": "Please input all fields"})
 		return
 	}

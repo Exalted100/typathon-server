@@ -51,6 +51,6 @@ func (userservice Userservice) FindByEmail(email string) (*entity.User, error) {
 }
 
 func (userservice Userservice) UpdateOne(parameter string, value string, updateDoc bson.M) (error) {
-	_, err := db.UsersCollection.UpdateOne(context.TODO(), bson.M{parameter: value}, updateDoc)
+	_, err := db.UsersCollection.UpdateOne(context.TODO(), bson.M{parameter: value}, bson.M{"$set": updateDoc})
 	return err
 }

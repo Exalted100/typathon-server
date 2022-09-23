@@ -42,7 +42,7 @@ func (scoreservice ScoreService) FindOne(parameter string, value string) (*entit
 
 //Find all user scores
 func (scoreservice ScoreService) FindUserHighestScores(parameter string, value string) (HighestScores, error) {
-	opts := options.Find().SetSort(bson.M{"score": -1}).SetLimit(5)
+	opts := options.Find().SetSort(bson.M{"score": 1}).SetLimit(5)
 	sprintCursor, err := db.ScoresCollection.Find(context.TODO(), bson.M{"mode": "sprint", parameter: value}, opts)
 	if err != nil {
 		fmt.Println(sprintCursor)
@@ -103,7 +103,7 @@ func (scoreservice ScoreService) FindUserHighestScores(parameter string, value s
 
 //Find highest user scores
 func (scoreservice ScoreService) FindHighestScores() (HighestScores, error) {
-	opts := options.Find().SetSort(bson.M{"score": -1}).SetLimit(5)
+	opts := options.Find().SetSort(bson.M{"score": 1}).SetLimit(5)
 	sprintCursor, err := db.ScoresCollection.Find(context.TODO(), bson.M{"mode": "sprint"}, opts)
 	if err != nil {
 		fmt.Println(sprintCursor)
